@@ -31,7 +31,7 @@ void initChatWindow(int argc, char *argv[]) {
 
     // Load the UI description from file
     GError *error = NULL;
-    if (!gtk_builder_add_from_file(builder, "client/chatWindow.glade", &error)) {
+    if (!gtk_builder_add_from_file(builder, "chatWindow.glade", &error)) {
         g_warning("Error loading UI file: %s", error->message);
         g_error_free(error);
         return;

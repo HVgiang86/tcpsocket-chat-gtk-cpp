@@ -7,7 +7,6 @@ GtkWidget *nameEntry;
 GtkWidget *ipEntry;
 GtkWidget *portEntry;
 GtkWidget *window;
-SOCKET mSocket;
 void callback();
 
 using CallbackFunc = void (*)();
@@ -25,7 +24,7 @@ void initLoginWindow(int argc, char *argv[]) {
 
     // Load the UI description from file
     GError *error = NULL;
-    if (!gtk_builder_add_from_file(builder, "C:\\Users\\HVGia\\CLionProjects\\untitled\\client\\login.glade", &error)) {
+    if (!gtk_builder_add_from_file(builder, "/home/hvgiang86/Projects/tcpsocket-chat-gtk-cpp/client/login.glade", &error)) {
         g_warning("Error loading UI file: %s", error->message);
         g_error_free(error);
         return;

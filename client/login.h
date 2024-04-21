@@ -8,15 +8,12 @@
 #include <iostream>
 #include "global.h"
 #include <gtk/gtk.h>
-//#include <sys/socket.h>
 #include <sys/types.h>
 #include <thread>
 #include <chrono>
-//#include <arpa/inet.h>
 #include "chat.h"
 #include "SocketClient.h"
 
-extern SOCKET mSocket;
 
 using CallbackFunc = void (*)();
 

@@ -16,7 +16,7 @@ void receiveMessages(int sock, CallbackFunc1 callback) {
     }
 }
 
-void connectSocket(const std::string& serverIp, const std::string& port, CallbackFunc1 callback) {
+void connectSocket(CallbackFunc1 callback) {
     std::thread(socketClientConnect, serverIp, port, callback).detach();
 }
 
@@ -27,7 +27,7 @@ void socketClientConnect(const std::string& serverIp, const std::string& port, C
         return;
     }
 
-    struct sockaddr_in server;
+    sockaddr_in server;
     server.sin_family = AF_INET;
     server.sin_port = htons(std::stoi(port));
     server.sin_addr.s_addr = inet_addr(serverIp.c_str());

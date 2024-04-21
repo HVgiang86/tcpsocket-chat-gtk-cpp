@@ -72,7 +72,7 @@ void SocketServer::clientHandler(int clientSocket) {
                 std::cout << "DTCB action: " << dtcb.action << std::endl;
 
                 if (dtcb.action == 0) {
-                    ZeroMemory(buffer, sizeof(buffer));
+                    memset(buffer, 0, sizeof(buffer));
                     int recvSize = recv(clientSocket, buffer, sizeof(buffer), 0);
                     if (recvSize == -1) {
                         throw std::runtime_error("Receive failed");
@@ -92,7 +92,7 @@ void SocketServer::clientHandler(int clientSocket) {
                         endReceive = true;
                     }
                 } else {
-                    ZeroMemory(buffer, sizeof(buffer));
+                    memset(buffer, 0, sizeof(buffer));
                     int recvSize = recv(clientSocket, buffer, sizeof(buffer), 0);
                     if (recvSize == -1) {
                         throw std::runtime_error("Receive failed");

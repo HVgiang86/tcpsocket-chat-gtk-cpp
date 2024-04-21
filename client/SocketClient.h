@@ -12,6 +12,10 @@
 #include "../Serializer.h"
 #include "../FileHelper.h"
 #include "login.h"
+#include <cstring>
+#include <unistd.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
 
 using CallbackFunc1 = void (*)(std::string);
 
@@ -21,7 +25,7 @@ void socketClientConnect(const std::string& serverIp, const std::string& port, C
 
 void closeConnection(int sock);
 
-void connectSocket(const std::string& serverIp, const std::string& port, CallbackFunc1 callback);
+void connectSocket(CallbackFunc1 callback);
 
 
 #endif //SOCKET_CLIENT_SOCKETCLIENT_H

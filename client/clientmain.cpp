@@ -2,7 +2,6 @@
 // Created by HVGia on 4/21/2024.
 //
 #include <iostream>
-#include <winsock2.h>
 #include <string>
 #include <thread>
 #include "../Serializer.h"
