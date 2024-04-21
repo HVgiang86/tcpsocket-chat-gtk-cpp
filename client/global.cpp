@@ -8,5 +8,5 @@
 std::string name;
 std::string serverIp;
 std::string port;
-SOCKET sock;
+int sock; // Using int instead of SOCKET for Linux
 std::string totalMsg;

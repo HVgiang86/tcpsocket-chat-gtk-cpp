@@ -7,23 +7,21 @@
 
 #include "global.h"
 #include <iostream>
-#include <winsock2.h>
 #include <string>
 #include <thread>
 #include "../Serializer.h"
 #include "../FileHelper.h"
 #include "login.h"
 
-#pragma comment(lib, "ws2_32.lib")
-
 using CallbackFunc1 = void (*)(std::string);
 
-void receiveMessages(SOCKET sock, CallbackFunc1 callback);
+void receiveMessages(int sock, CallbackFunc1 callback);
 
-void socketClientConnect(CallbackFunc1 callback);
+void socketClientConnect(const std::string& serverIp, const std::string& port, CallbackFunc1 callback);
 
-void closeConnection(SOCKET sock);
-void connectSocket(CallbackFunc1 callback);
+void closeConnection(int sock);
+
+void connectSocket(const std::string& serverIp, const std::string& port, CallbackFunc1 callback);
 
 
 #endif //SOCKET_CLIENT_SOCKETCLIENT_H

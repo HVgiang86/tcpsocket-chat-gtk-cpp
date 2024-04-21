@@ -10,7 +10,7 @@ GtkWidget *chatTextView1;
 GtkWidget *inputTextView2;
 
 void onMessageCallback(std::string s) {
-    std::cout << " callback called" <<std::endl;
+    std::cout << " callback called" << std::endl;
     std::cout << s << std::endl;
     Message msg = deserializeMessage(s);
     totalMsg += msg.sender + ": " + msg.content + "\n\n";
@@ -19,12 +19,10 @@ void onMessageCallback(std::string s) {
     textBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(chatTextView1));
 
     std::cout << "Total: " << totalMsg << std::endl;
-    gtk_text_buffer_set_text(GTK_TEXT_BUFFER(textBuffer),totalMsg.c_str(),-1);
+    gtk_text_buffer_set_text(textBuffer, totalMsg.c_str(), -1);
 }
 
-
 void initChatWindow(int argc, char *argv[]) {
-
     connectSocket(onMessageCallback);
 
     // Initialize GTK
@@ -33,8 +31,7 @@ void initChatWindow(int argc, char *argv[]) {
 
     // Load the UI description from file
     GError *error = NULL;
-    if (!gtk_builder_add_from_file(builder, "C:\\Users\\HVGia\\CLionProjects\\untitled\\client\\chatWindow.glade",
-                                   &error)) {
+    if (!gtk_builder_add_from_file(builder, "client/chatWindow.glade", &error)) {
         g_warning("Error loading UI file: %s", error->message);
         g_error_free(error);
         return;
@@ -52,7 +49,6 @@ void initChatWindow(int argc, char *argv[]) {
 
     gtk_widget_show_all(chatWindow);
     gtk_main();
-
 }
 
 std::string getMsg() {
@@ -60,11 +56,11 @@ std::string getMsg() {
     GtkTextBuffer *textBuffer;
     textBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(inputTextView2));
 
-    gtk_text_buffer_get_bounds(GTK_TEXT_BUFFER(textBuffer), &start, &end);
+    gtk_text_buffer_get_bounds(textBuffer, &start, &end);
     const GtkTextIter s = start, e = end;
-    std::string msg = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(textBuffer), &s, &e, FALSE);
+    std::string msg = gtk_text_buffer_get_text(textBuffer, &s, &e, FALSE);
 
-    gtk_text_buffer_delete(GTK_TEXT_BUFFER(textBuffer), &start, &end);
+    gtk_text_buffer_delete(textBuffer, &start, &end);
 
     return msg;
 }
@@ -89,14 +85,14 @@ void sendMsg() {
 
     //send dtcb
     int bytesSentDTCB = send(sock, dtcb.c_str(), dtcb.length(), 0);
-    if (bytesSentDTCB == SOCKET_ERROR) {
+    if (bytesSentDTCB == -1) {
         std::cerr << "Error in sending message." << std::endl;
         return;
     }
 
     //send msg
     int bytesSentMsg = send(sock, msgJson.c_str(), msgJson.length(), 0);
-    if (bytesSentMsg == SOCKET_ERROR) {
+    if (bytesSentMsg == -1) {
         std::cerr << "Error in sending message." << std::endl;
         return;
     }

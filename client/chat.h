@@ -8,12 +8,12 @@
 #include <iostream>
 #include "global.h"
 #include <gtk/gtk.h>
-//#include <sys/socket.h>
+#include <sys/socket.h> // Added for socket functions
 #include <sys/types.h>
 #include "SocketClient.h"
 #include <thread>
 #include <chrono>
-#include <winsock2.h>
+//#include <winsock2.h> // Removed as it's Windows-specific
 #include <string>
 #include "../Serializer.h"
 

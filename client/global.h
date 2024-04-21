@@ -6,12 +6,13 @@
 #define SOCKET_CLIENT_GLOBAL_H
 
 #include <iostream>
-#include <winsock2.h>
+#include <string>
+#include <sys/socket.h>
 
 extern std::string name;
 extern std::string serverIp;
 extern std::string port;
-extern SOCKET sock;
+extern int sock; // Using int instead of SOCKET for Linux
 extern std::string totalMsg;
 
 #endif //SOCKET_CLIENT_GLOBAL_H

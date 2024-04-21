@@ -6,35 +6,33 @@
 #define SOCKET_CLIENT_SOCKETSERVER_H
 
 #include <iostream>
-#include <winsock2.h>
-#include <thread>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 #include <vector>
 #include <stdexcept>
+#include <pthread.h>
 #include <string>
 #include <cstring>
 #include <algorithm>
 #include <mutex>
 #include "Serializer.h"
-
-#pragma comment(lib, "ws2_32.lib") // Link with ws2_32.lib
+#include <arpa/inet.h>
+#include <thread>
 
 class SocketServer {
 private:
-    WSADATA wsaData;
-    SOCKET serverSocket;
+    int serverSocket;
     struct sockaddr_in server;
     std::vector<std::thread> clientThreads;
-    std::vector<SOCKET> clients;
+    std::vector<int> clients;
     std::mutex clientsMutex;
 
 public:
     explicit SocketServer(int port);
     ~SocketServer();
-    void clientHandler(SOCKET clientSocket);
-//    [[nodiscard]] Data receiveData() const;
-//    void sendData(const Data &data) const;
+    void clientHandler(int clientSocket);
     void run();
-
 };
 
 

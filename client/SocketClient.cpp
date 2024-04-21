@@ -4,52 +4,37 @@
 #include "SocketClient.h"
 
 
-void receiveMessages(SOCKET sock, CallbackFunc1 callback) {
+void receiveMessages(int sock, CallbackFunc1 callback) {
     char buffer[1024];
     while (true) {
-        ZeroMemory(buffer, sizeof(buffer));
+        memset(buffer, 0, sizeof(buffer));
         int bytesReceived = recv(sock, buffer, sizeof(buffer), 0);
         if (bytesReceived > 0) {
             std::cout << "Received: " << buffer << std::endl;
+            callback(buffer);
         }
-
-        std::cout << buffer << std::endl;
-        callback(buffer);
     }
 }
 
-void connectSocket(CallbackFunc1 callback) {
-    std::thread(socketClientConnect, callback).detach();
+void connectSocket(const std::string& serverIp, const std::string& port, CallbackFunc1 callback) {
+    std::thread(socketClientConnect, serverIp, port, callback).detach();
 }
 
-void socketClientConnect(CallbackFunc1 callback) {
-    WSADATA wsaData;
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        std::cerr << "WSAStartup failed." << std::endl;
-        return;
-    }
-
-    SOCKET mSock = socket(AF_INET, SOCK_STREAM, 0);
-    if (mSock == INVALID_SOCKET) {
+void socketClientConnect(const std::string& serverIp, const std::string& port, CallbackFunc1 callback) {
+    int mSock = socket(AF_INET, SOCK_STREAM, 0);
+    if (mSock == -1) {
         std::cerr << "Socket creation failed." << std::endl;
-        WSACleanup();
         return;
     }
 
-    sock = mSock;
-
-    std::string ipAddress = serverIp; // IP address of the server
-    int serverPort = std::stoi(port); // Listening port # on the server
-
-    sockaddr_in server;
+    struct sockaddr_in server;
     server.sin_family = AF_INET;
-    server.sin_port = htons(serverPort);
-    server.sin_addr.s_addr = inet_addr(ipAddress.c_str());
+    server.sin_port = htons(std::stoi(port));
+    server.sin_addr.s_addr = inet_addr(serverIp.c_str());
 
-    if (connect(mSock, reinterpret_cast<sockaddr *>(&server), sizeof(server)) == SOCKET_ERROR) {
+    if (connect(mSock, reinterpret_cast<struct sockaddr *>(&server), sizeof(server)) == -1) {
         std::cerr << "Connection failed." << std::endl;
-        closesocket(sock);
-        WSACleanup();
+        close(mSock);
         return;
     }
 
@@ -57,13 +42,13 @@ void socketClientConnect(CallbackFunc1 callback) {
 
     // Start a thread to receive messages from the server
     std::thread receiverThread(receiveMessages, mSock, callback);
+    receiverThread.detach();
 
+    // Keep the main thread alive
     while(true);
 }
 
-void closeConnection(SOCKET sock) {
-
+void closeConnection(int sock) {
     // Cleanup
-    closesocket(sock);
-    WSACleanup();
+    close(sock);
 }
