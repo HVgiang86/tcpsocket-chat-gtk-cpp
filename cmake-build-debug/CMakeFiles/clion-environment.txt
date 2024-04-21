@@ -1,5 +1,4 @@
-ToolSet: 12.0 w64 (local)@C:\msys2\mingw64
-Ninja: 1.11.1@C:\Users\HVGia\AppData\Local\Programs\CLion\bin\ninja\win\x64\ninja.exe
+ToolSet: 1.0 (local)Ninja: 1.11.1@/home/hvgiang86/.cache/JetBrains/RemoteDev/dist/2d309d886531d_CLion-2024.1/bin/ninja/linux/x64/ninja
 Options: 
 
-Options:-DCMAKE_MAKE_PROGRAM=C:/Users/HVGia/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe
+Options:

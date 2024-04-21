@@ -1,4 +1,4 @@
-C:/Users/HVGia/CLionProjects/untitled/cmake-build-debug/CMakeFiles/server.dir
-C:/Users/HVGia/CLionProjects/untitled/cmake-build-debug/CMakeFiles/client.dir
-C:/Users/HVGia/CLionProjects/untitled/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/HVGia/CLionProjects/untitled/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/hvgiang86/Projects/tcpsocket-chat-gtk-cpp/cmake-build-debug/CMakeFiles/server_bin.dir
+/home/hvgiang86/Projects/tcpsocket-chat-gtk-cpp/cmake-build-debug/CMakeFiles/client_bin.dir
+/home/hvgiang86/Projects/tcpsocket-chat-gtk-cpp/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/hvgiang86/Projects/tcpsocket-chat-gtk-cpp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
